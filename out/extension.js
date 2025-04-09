@@ -27,7 +27,7 @@ function activate(context) {
                 .filter(cmd => cmd.startsWith(currentInput))
                 .map(cmd => {
                 const item = new vscode.CompletionItem("@" + cmd, vscode.CompletionItemKind.Keyword);
-                item.insertText = cmd + ' ';
+                item.insertText = '@' + cmd + ' ';
                 item.detail = 'NovelScript Command';
                 return item;
             });
