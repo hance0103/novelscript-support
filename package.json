@@ -1,0 +1,41 @@
+{
+  "name": "novelscript-support",
+  "displayName": "NovelScript Support",
+  "description": "Syntax highlighting and IntelliSense for .novel files",
+  "version": "0.0.5",
+  "publisher": "your-name",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onLanguage:novelscript"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "novelscript",
+        "aliases": ["NovelScript", "novelscript"],
+        "extensions": [".novel"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "novelscript",
+        "scopeName": "source.novelscript",
+        "path": "./syntaxes/novelscript.tmLanguage.json"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "tsc -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.8.2"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "comments": {
+    "lineComment": "//"
+  },
+  "wordPattern": "@?[a-zA-Z_]+",
+  "autoClosingPairs": [
+    { "open": "\"", "close": "\"" },
+    { "open": "(", "close": ")" }
+  ]
+}
