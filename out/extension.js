@@ -7,14 +7,22 @@ const vscode = require("vscode");
 const VALID_COMMANDS = [
     'goto',
     'char',
-    'bg',
-    'music',
-    'stopmusic',
-    'hide',
+    'back',
+    'bgm',
+    'sfx',
     'choice',
     'wait',
     'set',
-    'if'
+    'if',
+    'hide',
+    'hideall',
+    'hidechars',
+    'hideprinter',
+    'hideui',
+    'stop',
+    'stopbgm',
+    'stopsfx',
+    'stopvoice'
 ];
 function activate(context) {
     const provider = vscode.languages.registerCompletionItemProvider('novelscript', {
@@ -23,18 +31,20 @@ function activate(context) {
             const prefix = line.slice(0, position.character);
             const match = prefix.match(/@([a-zA-Z]*)$/);
             const currentInput = match ? match[1].toLowerCase() : "";
+            const replaceRange = new vscode.Range(new vscode.Position(position.line, position.character - currentInput.length - 1), position);
             return VALID_COMMANDS
                 .filter(cmd => cmd.startsWith(currentInput))
                 .map(cmd => {
                 const item = new vscode.CompletionItem("@" + cmd, vscode.CompletionItemKind.Keyword);
                 item.insertText = '@' + cmd + ' ';
                 item.detail = 'NovelScript Command';
+                item.range = replaceRange;
                 return item;
             });
         }
     }, '@', ...'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''));
     context.subscriptions.push(provider);
-    // ✅ 자동완성 강제 트리거 로직 추가
+    // 자동완성 강제 트리거 로직 추가
     vscode.workspace.onDidChangeTextDocument(e => {
         if (e.document.languageId === 'novelscript') {
             const lastChange = e.contentChanges[0];
